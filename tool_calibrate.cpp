@@ -6,13 +6,31 @@
 
 void print_help()
 {
+	printf("This program will calibrate your camera, and generate camera_<date>.data and camera_<date>.yml \n");
+	printf("camera_<date>.data will store the camera matrix and distort coefficient in binary \n");
+	printf("\t it contains 3x3 double elements and 5 double elements \n\n");
+	printf("camera_<date>.yml will store the same data in .yml file format\n");
+	printf("\t it contains \"cameraMatrix\" and \"distCoeffs\" \n\n");
+	printf("Usage: tool_calibrate  <options> \n");
+	printf("******** options: **********************\n");
+	printf("\t--camera        : set 1(default) for camera on line calibration\n");
+	printf("\t--file_list     : for inputting images list\n");
+	printf("\t--board_size    : set board size, the number of blocks in you chess board\n");
+	printf("\t--square_size   : set the length of block, in meter\n");
+	printf("\t--output_path   : set the output result path\n");
+	printf("\t--view_distorted: set 1(default) for display the undistorted images, 0 for not\n");
+	printf("\t--pattern_type  : set 0 for chess board, 1 for circles grid, 2 for asymmetric circles grid\n");
+	printf("******** options end ******************\n");
+
+	printf("you should set --board_size and --square_size, and be care of that --square_size should be in meters\n");
+
 
 }
 
 int main(int argc, char * argv[])
 {
 	Parameter param;
-	const char* const short_options = "hc:f:b:s:o:v:t:p:";
+	const char* const short_options = "hc:f:b:s:o:v:p:";
 	const struct option long_options[] =
 	{
 		{"help",           0, NULL, 'h'},
@@ -26,16 +44,9 @@ int main(int argc, char * argv[])
 		{NULL,             0, NULL, 0},
 	};
 
-
-	time_t     now;
-	struct tm *timenow;
-	time(&now);
-	timenow   =   localtime(&now);
-	printf("Local time is %s \n",asctime(timenow));
-
-
-
 	int next_opt = -1;
+
+	print_help();
 
 	param.use_camera        = 1;
 	param.camera_index      = -1;
